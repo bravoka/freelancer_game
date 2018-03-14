@@ -98,6 +98,24 @@ export class AppComponent implements AfterViewInit {
   	this.pos.Y += y;
   	this.drawImg();
   }
+
+  mouseMove(event) {
+    let rect = this.room['nativeElement'].getBoundingClientRect();
+    console.log(rect);
+    console.log(event);
+
+    let x = event.clientX - rect.x;
+    let y = event.clientY - rect.y;
+
+    this.jumpPosition(x, y);
+    this.drawImg();
+  }
+
+
+  jumpPosition(x: number, y: number) {
+    this.pos.X = x;
+    this.pos.Y = y;
+  }
 }
 
 export class PlayerPosition {
@@ -107,11 +125,6 @@ export class PlayerPosition {
   constructor() {
   	this.X = 0;
   	this.Y = 0;
-  }
-
-  jumpPosition(x: number, y: number) {
-  	this.X = x;
-  	this.Y = y;
   }
 }
 
