@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { PlayerService } from './services/player.service';
 
 @Component({
@@ -13,11 +13,37 @@ export class AppComponent implements AfterViewInit {
 
   // private imgEle: HTMLImageElement;
 
+
+
   @ViewChild('myRoom') room: HTMLCanvasElement;
 
+  @HostListener('window: keydown', ['$event'])
+
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
+
+    if (event.keyCode === 39)
+    {
+      console.log('right');
+      this.movePos(1, 0);
+    }
+    else if (event.keyCode === 37) {
+      console.log('kleft');
+      this.movePos(-1, 0);
+    }
+    else if (event.keyCode === 40) {
+      console.log('down');
+      this.movePos(0, 1);
+    }
+    else if (event.keyCode === 38) {
+      console.log('up');
+      this.movePos(0, -1);
+    }
 
 
-  // @ViewChild('myImg') img: ElementRef;
+  }
+
+  // @ViewChild('myImg') imgRef: ElementRef;
 
   public context: CanvasRenderingContext2D;
 
@@ -43,12 +69,14 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
   	this.context = this.room['nativeElement'].getContext('2d');
+  	// this.img = this.imgRef as HTMLImageElement;
   	// this.context = this.room[0].getContext('2d');
   	console.log(this.room);
   	console.log(this.context);
   	this.img = document.getElementById('myImg2') as HTMLImageElement;
   	this.img.src = 'assets/bravoka.png';
-  	// this.context.drawImage(this.img,100,100,50,50);
+
+
   }
 
   getPlayer(): void {
@@ -65,11 +93,10 @@ export class AppComponent implements AfterViewInit {
   	this.context.drawImage(this.img, this.pos.X, this.pos.Y, 10, 10);
   }
 
-  movePos(): void {
-  	this.pos.X++;
-  	this.pos.Y++;
+  movePos(x: number, y: number): void {
+  	this.pos.X += x;
+  	this.pos.Y += y;
   	this.drawImg();
-  	
   }
 }
 
@@ -89,7 +116,9 @@ export class PlayerPosition {
 }
 
 export class Room {
-
+	StartingPosition: number;
+	Width: number;
+	Height: number;
 }
 
 export class Map {
