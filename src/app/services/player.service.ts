@@ -1,11 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable()
-export class PlayerService {
+export class PlayerService implements OnInit {
   player: Player;
+  
   location: string; // Location Interface (later)
 
-  constructor() { }
+  constructor() { 
+  	this.player = new Player(
+  		'Jimbotron',
+  		1000,
+  		50,
+  		[ 'Attribute1', 'Attribute2' ]
+	);
+  }
+
+  ngOnInit() {
+
+  }
 
   newGame(player: Player) {
   	this.player = player;
@@ -35,7 +47,10 @@ export class Player {
   Happiness: number;
   Attributes: string[]; // enumerable vs string
 
-  constructor() {
-  	// code...
+  constructor(name: string, money: number, happiness: number, attribs: string[]) {
+  	this.Name = name;
+  	this.Money = money;
+  	this.Happiness = happiness;
+  	this.Attributes = attribs;
   }
 }
