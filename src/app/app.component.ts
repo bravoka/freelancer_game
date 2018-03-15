@@ -56,6 +56,9 @@ export class AppComponent implements AfterViewInit {
     this.player = new Rectangle(new Point(0,0), 10, 10);
 
     this.obstacle = new Rectangle(new Point(100, 100), 15, 15);
+
+    this.currentRoom = new Room('home', new Point(50,50), 600, 300);
+
   }
 
   ngAfterViewInit() {
@@ -79,8 +82,12 @@ export class AppComponent implements AfterViewInit {
 
   drawImg(): void {
   	this.context.clearRect(0, 0, this.room['nativeElement'].width, this.room['nativeElement'].height)
+
+    this.context.strokeRect(this.currentRoom.StartingPosition.X, this.currentRoom.StartingPosition.Y, this.currentRoom.Width, this.currentRoom.Height);
   	this.context.drawImage(this.img, this.player.Position.X, this.player.Position.Y, this.player.Width, this.player.Height);
     this.context.drawImage(this.obst, this.obstacle.Position.X, this.obstacle.Position.Y, this.obstacle.Width, this.obstacle.Height);
+
+
 
     this.collision = this.checkForCollision(this.obstacle);
   }
@@ -120,6 +127,22 @@ export class AppComponent implements AfterViewInit {
     }
     return false;
   }
+
+  // Testing resizing the canvas
+  resizeRoom() {
+    let newWidth = 600;
+    let newHeight = 500;
+
+    this.room['nativeElement'].width = newWidth;
+    this.room['nativeElement'].height = newHeight;
+  }
+
+  // Because the canvas shouldnt have to resize...
+  drawRectangleInsideCanvas() {
+    let rectangle: Rectangle = new Rectangle(new Point(50, 50), 280, 190)
+
+    this.context.strokeRect(rectangle.Position.X, rectangle.Position.Y, rectangle.Width, rectangle.Height);
+  }
 }
 
 export class Rectangle {
@@ -145,11 +168,53 @@ export class Point {
 }
 
 export class Room {
-	StartingPosition: number;
+  Name: string;
+	StartingPosition: Point;
 	Width: number;
 	Height: number;
+  Obstacles: Rectangle[];
+  // NPCs: Rectangle[]; This should not be of class rectangle... rectangle should be base of something else
+
+  PlayerEntry: Point[];
+
+  constructor(name: string, position: Point, width: number, height: number) {
+    this.Name = name;
+    this.StartingPosition = position;
+    this.Width = width;
+    this.Height = height;
+  }
 }
 
 export class Map {
 
+}
+
+
+
+export class Game {
+
+  SpriteBatch: string //SpriteBatch class. This may be the equivalent of CanvasRenderer2DContext.
+
+  Initialize(): void {
+    //Called before LoadContent
+  }
+
+  //called once
+  LoadContent(): void {
+
+  }
+
+  // Should take a GameTime parameter
+  Update(): void {
+
+  }
+
+  // Should take a GameTime parameter. Called after Update()
+  Draw(): void {
+
+  }
+}
+
+export class Camera {
+  // Think about how to implement this.
 }

@@ -1,15 +1,18 @@
 <button (click)="getPlayer()">getPlayer()</button>
 <button (click)="draw()">draw()</button>
 <button (click)="drawImg()">drawImg()</button>
+<button (click)="resizeRoom()">resizeRoom()</button>
+<button (click)="drawRectangleInsideCanvas()">drawRectangleInsideCanvas()</button>
 
 <br/>
 
-<div class="padder">
+<!-- <div class="padder"> -->
 
-  <canvas #myRoom height="400" width="500" class="room" (click)="mouseMove($event)">
+  <canvas #myRoom width="1000" height="600" class="room" (click)="mouseMove($event)">
   <img id='myImg2' #myImg>
 
 
   </canvas>
-</div>
+<!-- </div> -->
+<br />
 Collision between Player and Object1: {{collision}}
