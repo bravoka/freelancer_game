@@ -218,3 +218,18 @@ export class Game {
 export class Camera {
   // Think about how to implement this.
 }
+
+export class NPC {
+  Name: string;
+  SpriteSheetUrl: string;
+  Conversation: Dialog[];
+}
+
+// how do i manage dialog? Maybe dont use OOP for this and just rely on good old if else, maybe just wrap it into some sort of container..... 
+export class Dialog {
+
+}
+
+export class Terrain {
+
+}
